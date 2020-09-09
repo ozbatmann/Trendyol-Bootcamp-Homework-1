@@ -11,7 +11,11 @@ import notificationsender.SmsSender;
 public class SmsPackage extends NotificationPackage {
 
 	ExceedStrategy exceedStrategy;
-
+	/**
+	 * @param
+	 * exceedStrategy I hold exceedStrategy as an instance encapsulate it's behaviour in EmailPackage context.
+	 *
+	 **/
 	public SmsPackage(ExceedStrategy exceedStrategy, NotificationPackageType notificationPackageType, LanguageType languageType) {
 		super(notificationPackageType, languageType);
 		this.exceedStrategy = exceedStrategy;

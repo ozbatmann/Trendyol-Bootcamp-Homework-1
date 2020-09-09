@@ -3,6 +3,7 @@ package notificationsender;
 import enums.messages.MessageType;
 import exception.SubscriptionNotFoundException;
 import lombok.Getter;
+import model.company.Company;
 import model.notification.Notification;
 import model.user.User;
 import notificationpackage.impl.SmsPackage;
@@ -18,6 +19,13 @@ public class SmsSender extends NotificationSender {
 		super(notificationSenderSettings);
 	}
 
+	/**
+	 * @param
+	 * notification object given which is sent.
+	 * @exception
+	 * SubscriptionNotFoundException if quota exceed and suitable subscription is not found.
+	 *
+	 * **/
 	@Override
 	public void send(Notification notification) throws SubscriptionNotFoundException {
 		for(User user : notification.getReceivers()){
@@ -25,14 +33,20 @@ public class SmsSender extends NotificationSender {
 				MessageUtil.printMessage(super.getMessageConverter().getConvertedMessage(MessageType.SUCCESS_SMS.getTextMessageKey()) + " " + user.getFullName());
 				super.decreaseQuota();
 			} else {
-				quotaExceedOperation(notification);
+				quotaExceedOperation(notification.getSender());
 			}
 		}
 	}
-
-	private void quotaExceedOperation(Notification notification) throws SubscriptionNotFoundException {
+	/**
+	 * @param
+	 * company object is given to reach subscription information.
+	 * @exception
+	 * SubscriptionNotFoundException if quota exceed and suitable subscription is not found.
+	 *
+	 * **/
+	private void quotaExceedOperation(Company company) throws SubscriptionNotFoundException {
 		MessageUtil.printMessage(getMessageConverter().getConvertedMessage(MessageType.SMS_QUOTA_EXCEED.getTextMessageKey()));
-		Optional<NotificationSubscription> notificationSubscriptionOptional = notification.getSender().getSmsNotificationSubscription();
+		Optional<NotificationSubscription> notificationSubscriptionOptional = company.getSmsNotificationSubscription();
 
 		if(!notificationSubscriptionOptional.isPresent()) throw new SubscriptionNotFoundException(MessageType.SMS_SUBSCRIPTON_NOT_FOUND.getTextMessageKey());
 		NotificationSubscription notificationSubscription = notificationSubscriptionOptional.get();

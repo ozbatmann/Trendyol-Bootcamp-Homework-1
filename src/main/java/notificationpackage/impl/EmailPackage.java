@@ -14,6 +14,11 @@ public class EmailPackage extends NotificationPackage {
 	@Getter
 	ExceedStrategy exceedStrategy;
 
+	/**
+	 * @param
+	 * exceedStrategy I hold exceedStrategy as an instance encapsulate it's behaviour in EmailPackage context.
+	 *
+	 **/
 	public EmailPackage(ExceedStrategy exceedStrategy, NotificationPackageType notificationPackageType, LanguageType languageType) {
 		super(notificationPackageType, languageType);
 		this.exceedStrategy = exceedStrategy;

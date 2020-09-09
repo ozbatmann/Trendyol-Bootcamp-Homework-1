@@ -28,6 +28,11 @@ public class NotificationSubscription {
 		billList = new ArrayList<>();
 
 	}
+	/**
+	 * refresh notification subscription information when fixed package
+	 * quota exceed operation performed.
+	 *
+	 * */
 
 	public void refreshNotificationSubscription() {
 		if(DateUtil.lowerThan(DateUtil.nowAsDate(), endDate)){
@@ -40,7 +45,11 @@ public class NotificationSubscription {
 			billList.add(newBill);
 		}
 	}
-
+	/**
+	 * add amount to the current bill when flexible package
+	 * quota exceed operation performed.
+	 *
+	 * */
 	public void addAmountToBill() {
 		if(DateUtil.lowerThan(DateUtil.nowAsDate(),endDate)){
 			Bill bill = billList.get(billList.size() - 1);
