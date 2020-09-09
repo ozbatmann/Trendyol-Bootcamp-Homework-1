@@ -5,6 +5,7 @@ import model.notification.Sms;
 import model.user.User;
 import notificationpackage.impl.NotificationPackage;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import util.UUIDGenerator;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class NotificationSubscriptionTest {
 
 	@Test
+	@DisplayName("Fixed package quota exceed amount change test.")
 	public void it_should_double_bill_amount() {
 		Company company = Company.builder().id(UUIDGenerator.getUUID()).name("Trendyol").notificationSubscriptionList(new ArrayList<>()).build();
 		NotificationHub notificationHub = new NotificationHub();
@@ -47,6 +49,7 @@ public class NotificationSubscriptionTest {
 	}
 
 	@Test
+	@DisplayName("Flexible package quota exceed amount change test.")
 	public void it_should_increase_amount_by_one_extra_amount() {
 		Company company = Company.builder().id(UUIDGenerator.getUUID()).name("Trendyol").notificationSubscriptionList(new ArrayList<>()).build();
 		NotificationHub notificationHub = new NotificationHub();
